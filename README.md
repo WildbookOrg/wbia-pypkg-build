@@ -1,10 +1,12 @@
 # The WildBook IA (WBIA) Python Package Build base container
 
+
 ## Project Description
 
-This is a container built on Ubuntu 18.04 with Python 3.6 and OpenCV 3.4.4 installed. The goal for this container is to be able to build libraries to binary format for use by the application.
+This is a container built on Ubuntu 18.04 with Python 3.6 and OpenCV 3.4.10 installed. The goal for this container is to be able to build libraries to binary format for use by the application.
 
-This only supports building against Python 3.6 and OpenCV 3.4.4.
+This only supports building against Python 3.6 and OpenCV 3.4.10.
+
 
 ## Requirements
 
@@ -22,7 +24,13 @@ Run it over your code, for example:
     git clone https://github.com/WildbookOrg/wbia-tpl-pydarknet.git
     cd wbia-tpl-pydarknet
     docker run --rm -v $PWD:/code -w /code wildme/wbia-pypkg-build:dev ...
-    
+
+
+## Installed build tools
+
+* cmake
+* scikit-build
+
 
 ## License
 
