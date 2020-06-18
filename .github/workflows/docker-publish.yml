@@ -56,8 +56,7 @@ jobs:
           docker push $IMAGE_ID:$VERSION
 
       - name: Log into Docker Hub
-        # FIXME (18-Jun-12020) Temporarily pushing as my user while the bot user's creds&perms are sorted out.
-        run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login docker.pkg.github.com -u mmulich --password-stdin
+        run: echo "${{ secrets.WBIA_WILDMEBOT_DOCKER_HUB_TOKEN }}" | docker login docker.pkg.github.com -u wildmebot --password-stdin
 
       - name: Push image to Docker Hub
         run: |
