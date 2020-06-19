@@ -1,37 +1,31 @@
-# The WildBook IA (WBIA) Python Package Build base container
+# Wildbook IA - manylinux container
 
+This repository contains instructions for the creating a base container used in the building of Wildbook IA (wbia) Python libraries.
 
-## Project Description
-
-This is a container built on Ubuntu 18.04 with Python 3.6 and OpenCV 3.4.10 installed. The goal for this container is to be able to build libraries to binary format for use by the application.
-
-This only supports building against Python 3.6 and OpenCV 3.4.10.
-
-
-## Requirements
-
-This only requires that you have Docker or some other container engine installed on your system. Note, the documenation here specifically use Docker.
-
+This work derives from the [Many Linux project's base](https://github.com/pypa/manylinux). We add OpenCV2 into the project as it is a dependency that many of our libraries require.
 
 ## Usage
 
-Build the container:
+This is intended to be used the same as any `manylinux` container.
 
-    docker build -t wildme/wbia-pypkg-build:dev .
+We use the [cibuildwheel](https://github.com/joerick/cibuildwheel) tool, which abstracts the building of wheels. To use this image with the tool set the `CIBW_MANYLINUX_X86_64_IMAGE` environment variable to this image.
 
-Run it over your code, for example:
-
-    git clone https://github.com/WildbookOrg/wbia-tpl-pydarknet.git
-    cd wbia-tpl-pydarknet
-    docker run --rm -v $PWD:/code -w /code wildme/wbia-pypkg-build:dev ...
-
+    export CIBW_MANYLINUX_X86_64_IMAGE=wildme/wbia-manylinux
 
 ## Installed build tools
 
-* cmake
-* scikit-build
+This container includes an installation of OpenCV 4.2.0 with contrib modules.
 
+This container is build on [The Many Linux Project's](https://github.com/pypa/manylinux) 2010 x86_64 container. This therefore will produce wheels tagged with `manylinux2010_x86_64`.
+
+Python 3.6 installed libraries
+
+* cmake
+* ninja
+* scikit-build
+* wheel
+* numpy
 
 ## License
 
-This software is subject to the provisions of the Apache License 2.0. See LICENSE file for details. Copyright (c) 2020 WildMe.
+This software is subject to the provisions of the Apache License 2.0 (APL 2.0). See LICENSE file for details. Copyright (c) 2020 Wild Me.
