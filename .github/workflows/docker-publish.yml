@@ -15,7 +15,7 @@ on:
 
 env:
   DOCKER_HUB_ORG: wildme
-  IMAGE_NAME: pypkg
+  IMAGE_NAME: manylinux
 
 jobs:
   # Push container image to GitHub Packages and Docker Hub.

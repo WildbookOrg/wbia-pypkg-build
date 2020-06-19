@@ -10,7 +10,7 @@ This is intended to be used the same as any `manylinux` container.
 
 We use the [cibuildwheel](https://github.com/joerick/cibuildwheel) tool, which abstracts the building of wheels. To use this image with the tool set the `CIBW_MANYLINUX_X86_64_IMAGE` environment variable to this image.
 
-    export CIBW_MANYLINUX_X86_64_IMAGE=wildme/wbia-manylinux
+    export CIBW_MANYLINUX_X86_64_IMAGE=wildme/manylinux
 
 ## Installed build tools
 
@@ -25,6 +25,14 @@ Python 3.6 installed libraries
 * scikit-build
 * wheel
 * numpy
+
+## Build instructions
+
+Do not manually publish this image. The GitHub Workflow associated with the code repository will automatically build and publish the container.
+
+To build the project for development purposes use: `docker build -t wildme/manylinux .`
+
+You may optionally supply the OpenCV version to build within this image by supplying `OPENCV_VERSION`. For example, `docker build ... --build-arg OPENCV_VERSION 4.3.0 ...`
 
 ## License
 
