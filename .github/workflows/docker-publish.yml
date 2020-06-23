@@ -56,7 +56,7 @@ jobs:
           docker push $IMAGE_ID:$VERSION
 
       - name: Log into Docker Hub
-        run: echo "${{ secrets.WBIA_WILDMEBOT_DOCKER_HUB_TOKEN }}" | docker login docker.pkg.github.com -u wildmebot --password-stdin
+        run: echo "${{ secrets.WBIA_WILDMEBOT_DOCKER_HUB_TOKEN }}" | docker login -u wildmebot --password-stdin
 
       - name: Push image to Docker Hub
         run: |
