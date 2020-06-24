@@ -42,8 +42,9 @@ jobs:
           cmake --version
           sudo port -vs install eigen3-devel
           ls -al /opt/local/var/macports/software/
+          tar -zcvf /macports.tar.gz /opt/local/
       - name: Upload MacPorts artifact
         uses: actions/upload-artifact@master
         with: 
           name: macports
-          path: /opt/local/
+          path: /macports.tar.gz
