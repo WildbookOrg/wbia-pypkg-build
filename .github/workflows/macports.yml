@@ -10,6 +10,7 @@ jobs:
       - name: Command line
         run: |
           id
+          echo $(pwd)
           echo $PATH
           brew list --versions
       - name: Python
@@ -42,9 +43,10 @@ jobs:
           cmake --version
           sudo port -vs install eigen3-devel
           du -sh /opt/local/
-          sudo tar -zcvf /tmp/macports.tar.gz /opt/local/
+          sudo tar -zcvf macports.tar.gz /opt/local/
+          du -sh macports.tar.gz
       - name: Upload MacPorts artifact
         uses: actions/upload-artifact@master
         with: 
           name: macports
-          path: /tmp/macports.tar.gz
+          path: macports.tar.gz
