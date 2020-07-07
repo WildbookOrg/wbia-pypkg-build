@@ -27,7 +27,7 @@ jobs:
           port version
           ls -al $(which cmake)
           cmake --version
-          sudo port -vs install cmake
+          sudo port install cmake
           ls -al $(which cmake)
           cmake --version
 

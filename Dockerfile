@@ -1,28 +1,14 @@
 FROM quay.io/pypa/manylinux2010_x86_64
 
-ARG OPENCV_VERSION=4.2.0
-
 ENV WORKSPACE=/tmp/opencv
 
 ENV VIRTUAL_ENV=/usr/local
 
-RUN ln -s /opt/python/cp36-cp36m/bin/python /usr/bin/python3
-
 ENV PATH="${PATH}:/opt/python/cp36-cp36m/bin"
-
-RUN echo "Using OPENCV_VERSION = ${OPENCV_VERSION}" \
- && echo "Using WORKSPACE      = ${WORKSPACE}" \
- && echo "Using VIRTUAL_ENV    = ${VIRTUAL_ENV}" \
- && echo "Using python3        = $(which python3)"
-
-# ######################################
-# Install OpenCV
 
 RUN set -ex \
  && yum install -y \
     epel-release \
-    gcc \
-    gcc-c++ \
     git \
     cmake3 \
     gflags-devel \
@@ -31,13 +17,20 @@ RUN set -ex \
  && yum clean all \
  && rm -rf /var/cache/yum
 
- RUN python3 -m pip install -q --no-cache-dir --upgrade pip \
+RUN ln -s /opt/python/cp36-cp36m/bin/python /usr/bin/python3
+
+RUN python3 -m pip install -q --no-cache-dir --upgrade pip \
  && python3 -m pip install -q --no-cache-dir numpy
 
-# ??? Installing newer versions of gstreamer?
-# This line was stollen from https://quay.io/repository/erotemic/manylinux-opencv/manifest/sha256:1d81c95ce784779f0281321b5f1ef71f86f28c6f107936b492d4677dbb716d18
-# This resolves a compilation error in opencv.
-# RUN curl -O https://raw.githubusercontent.com/torvalds/linux/v4.14/include/uapi/linux/videodev2.h && curl -O https://raw.githubusercontent.com/torvalds/linux/v4.14/include/uapi/linux/v4l2-common.h && curl -O https://raw.githubusercontent.com/torvalds/linux/v4.14/include/uapi/linux/v4l2-controls.h && curl -O https://raw.githubusercontent.com/torvalds/linux/v4.14/include/linux/compiler.h && mv videodev2.h v4l2-common.h v4l2-controls.h compiler.h /usr/include/linux
+ARG OPENCV_VERSION=4.2.0
+
+# ######################################
+# Install OpenCV
+
+RUN echo "Using OPENCV_VERSION = ${OPENCV_VERSION}" \
+ && echo "Using WORKSPACE      = ${WORKSPACE}" \
+ && echo "Using VIRTUAL_ENV    = ${VIRTUAL_ENV}" \
+ && echo "Using python3        = $(which python3)"
 
 RUN set -ex \
  && git clone https://github.com/opencv/opencv.git ${WORKSPACE}/opencv \
@@ -50,6 +43,8 @@ RUN set -ex \
  && mkdir -p ${WORKSPACE}/opencv/build \
  && cd ${WORKSPACE}/opencv/build \
  && cmake3 \
+      -D CMAKE_C_COMPILER=gcc \
+      -D CMAKE_CXX_COMPILER=g++ \
       -D CMAKE_BUILD_TYPE=RELEASE \
       -D CMAKE_INSTALL_PREFIX=${VIRTUAL_ENV} \
       -D OPENCV_GENERATE_PKGCONFIG=ON \
@@ -105,7 +100,6 @@ RUN set -ex \
  && make -j9 \
  && make install \
  && ldconfig \
- && cd .. \
  && rm -rf ${WORKSPACE}
 
 RUN python3 -m pip install -q --no-cache-dir cmake ninja scikit-build wheel
