@@ -1,5 +1,7 @@
 name: Macports
+
 on: [push]
+
 jobs:
   macOS:
     name: Run macOS
@@ -30,6 +32,7 @@ jobs:
           cmake --version
 
       - name: Tarball MacPorts
+        run: |
           du -sh /opt/local/
           sudo tar -zcvf macports.tar.gz /opt/local/
           du -sh macports.tar.gz
