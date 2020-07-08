@@ -38,7 +38,7 @@ jobs:
         run: |
           VERSION=$(echo ${GITHUB_REF} | sed 's#.*/v##')
           docker tag wildme/manylinux:latest wildme/manylinux:${VERSION}
-          docker tag docker.pkg.github.com/WildbookOrg/wbia-pypkg-build/manylinux:latest docker.pkg.github.com/WildbookOrg/wbia-pypkg-build/manylinux:${VERSION}
+          docker tag docker.pkg.github.com/wildbookorg/wbia-pypkg-build/manylinux:latest docker.pkg.github.com/wildbookorg/wbia-pypkg-build/manylinux:${VERSION}
 
           docker push wildme/manylinux:${VERSION}
-          docker push docker.pkg.github.com/WildbookOrg/wbia-pypkg-build/manylinux:${VERSION}
+          docker push docker.pkg.github.com/wildbookorg/wbia-pypkg-build/manylinux:${VERSION}
