@@ -13,6 +13,7 @@ ENV PATH="${PATH}:/opt/python/cp36-cp36m/bin"
 RUN set -ex \
  && yum install -y \
         epel-release \
+        cmake3 \
         git \
         gflags-devel \
         eigen3-devel \
@@ -25,8 +26,7 @@ RUN ln -s /opt/python/cp36-cp36m/bin/python /usr/bin/python3
 RUN set -ex \
  && python3 -m pip install -q --no-cache-dir --upgrade pip \
  && python3 -m pip install -q --no-cache-dir --upgrade setuptools wheel \
- && python3 -m pip install -q --no-cache-dir --upgrade cmake ninja scikit-build numpy
-
+ && python3 -m pip install -q --no-cache-dir --upgrade ninja scikit-build numpy
 
 RUN set -ex \
  && echo "Using OPENCV_VERSION = ${OPENCV_VERSION}" \
@@ -45,7 +45,7 @@ RUN set -ex \
  && rm -rf ${WORKSPACE}/opencv/build \
  && mkdir -p ${WORKSPACE}/opencv/build \
  && cd ${WORKSPACE}/opencv/build \
- && cmake \
+ && cmake3 \
         -D CMAKE_C_COMPILER=gcc \
         -D CMAKE_CXX_COMPILER=g++ \
         -D CMAKE_BUILD_TYPE=RELEASE \
