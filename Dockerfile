@@ -45,7 +45,7 @@ RUN set -ex \
  && rm -rf ${WORKSPACE}/opencv/build \
  && mkdir -p ${WORKSPACE}/opencv/build \
  && cd ${WORKSPACE}/opencv/build \
- && cmake3 \
+ && cmake \
         -D CMAKE_C_COMPILER=gcc \
         -D CMAKE_CXX_COMPILER=g++ \
         -D CMAKE_BUILD_TYPE=RELEASE \
